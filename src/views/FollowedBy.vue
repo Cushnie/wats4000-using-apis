@@ -1,14 +1,13 @@
 <template>
-  <div class="rhymesaurus">
-    <h2>Rhymesaurus: The Rhyming Thesaurus</h2>
-    <p><router-link to="/followedby">Follow The Leader 
+  <div class="followedBy">
+    <h2>Follow the Leader</h2>
+    <p><router-link to="/">Rhymeasaurus
       </router-link>
     </p>
     <form v-on:submit.prevent="findWords">
       <p>
-        Find rhymes for
-        <input type="text" v-model="rhyme"> related to
-        <input type="text" v-model="phrase">
+        Give us a word
+        <input type="text" v-model="noun"> and we'll tell you the most common word to follow it.
         <button type="submit">Search</button>
       </p>
     </form>
@@ -37,13 +36,12 @@ import axios from "axios";
 import { error } from "util";
 
 export default {
-  name: "Rhymesaurus",
+  name: "FollowedBy",
   data() {
     return {
       results: null,
       errors: [],
-      phrase: "",
-      rhyme: ""
+      noun: ""
     };
   },
   methods: {
@@ -51,8 +49,7 @@ export default {
       axios
         .get("https://api.datamuse.com/words", {
           params: {
-            ml: this.phrase,
-            rel_rhy: this.rhyme
+            rel_bga: this.noun
           }
         })
         .then(response => {
@@ -68,7 +65,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.rhymesaurus {
+.followedBy {
   font-size: 1.4rem;
 }
 
